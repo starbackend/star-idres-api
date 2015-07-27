@@ -1,0 +1,79 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>star</groupId>
+	<artifactId>star-idres-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+
+	<scm>
+		<connection>scm:git:https://github.com/starbackend/star-idres-api</connection>
+		<developerConnection>scm:git:https://github.com/cwatch/starbackend/star-idres-api</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
+
+	<repositories>
+		<repository>
+			<id>cwatch-repo-releases</id>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<url>https://cwatch.org/repo/releases</url>
+		</repository>
+		<repository>
+			<id>cwatch-repo-snapshots</id>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<url>https://cwatch.org/repo/libs-snapshot-local</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>18.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<distributionManagement>
+		<repository>
+			<id>cwatch-repo</id>
+			<name>cwatch-repo-releases</name>
+			<url>https://cwatch.org/repo/libs-release-local</url>
+		</repository>
+		<snapshotRepository>
+			<id>cwatch-repo</id>
+			<name>cwatch-repo-snapshots</name>
+			<url>https://cwatch.org/repo/libs-snapshot-local</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<modules>
+		<module>common</module>
+		<module>lookup</module>
+	</modules>
+</project>
