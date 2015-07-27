@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><graph id="G" edgedefault="undirected"><attr name="rankdir"><string>LR</string></attr><attr name="splines"><string>line</string></attr><node id="vesseldb"><attr name="label"><string>Existing
+Vessel
+Database</string></attr><attr name="shape"><string>parallelogram</string></attr></node><node id="datastream"><attr name="label"><string>Data Stream</string></attr><attr name="shape"><string>cds</string></attr></node><node id="operator"><attr name="label"><string>Operator</string></attr><attr name="shape"><string>circle</string></attr></node><node id="service"><graph id="cluster_service"><attr name="label"><string>IDRES Service</string></attr><node id="serviceNode1"><attr name="label"><string>IDRES Service Node 1</string></attr></node><node id="serviceNode2"><attr name="label"><string>IDRES Service Node 2</string></attr></node><node id="serviceNode3"><attr name="label"><string>IDRES Service Node 3</string></attr></node><node id="serviceNode4"><attr name="label"><string>IDRES Service Node 4</string></attr></node></graph></node><node id="gdbsync"><graph id="cluster_gdbsync"><attr name="label"><string>Database Synchronization</string></attr><node id="dbsync"><attr name="label"><string>Custom
+Adapter
+Logic</string></attr></node><node id="udbsync"><attr name="label"><string>IDRES
+Update
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node><edge from="dbsync" to="udbsync"></edge><edge from="udbsync" to="serviceNode1"></edge><edge from="udbsync" to="serviceNode2"></edge><edge from="udbsync" to="serviceNode3"></edge><edge from="udbsync" to="serviceNode4"></edge></graph></node><node id="gprocessor"><graph id="cluster_gprocessor"><attr name="label"><string>Data Stream Processing</string></attr><node id="processor"><attr name="label"><string>Custom
+Adapter
+Logic</string></attr></node><node id="uprocessor"><attr name="label"><string>IDRES
+Update
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node><edge from="processor" to="uprocessor"></edge><edge from="uprocessor" to="serviceNode1"></edge><edge from="uprocessor" to="serviceNode2"></edge><edge from="uprocessor" to="serviceNode3"></edge><edge from="uprocessor" to="serviceNode4"></edge></graph></node><node id="gui"><graph id="cluster_gui"><attr name="label"><string>User Interface</string></attr><node id="ui"><attr name="label"><string>Application
+Code</string></attr></node><node id="uui"><attr name="label"><string>IDRES
+Update
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node><edge from="ui" to="uui"></edge><edge from="uui" to="serviceNode1"></edge><edge from="uui" to="serviceNode2"></edge><edge from="uui" to="serviceNode3"></edge><edge from="uui" to="serviceNode4"></edge></graph></node><edge from="vesseldb" to="dbsync"><attr name="dir"><string>back</string></attr></edge><edge from="datastream" to="processor"></edge><edge from="operator" to="ui"></edge></graph></graphml>

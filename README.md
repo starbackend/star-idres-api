@@ -1,1 +1,0 @@
-# star-idres-api

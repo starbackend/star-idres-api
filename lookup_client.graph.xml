@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?><graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><graph id="G" edgedefault="undirected"><attr name="rankdir"><string>LR</string></attr><attr name="splines"><string>line</string></attr><node id="service"><graph id="cluster_service"><attr name="label"><string>IDRES Service</string></attr><node id="serviceNode1"><attr name="label"><string>IDRES Service
+Node 1</string></attr></node><node id="serviceNode2"><attr name="label"><string>IDRES Service
+Node 2</string></attr></node><node id="serviceNode3"><attr name="label"><string>IDRES Service
+Node 3</string></attr></node></graph></node><node id="app1"><graph id="cluster_app1"><attr name="label"><string>Application 1</string></attr><node id="appCode1"><attr name="label"><string>Application
+Code</string></attr></node><node id="client1"><attr name="label"><string>IDRES
+Lookup
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node></graph></node><edge from="client1" to="serviceNode1"></edge><node id="app1"><graph id="cluster_app1"><attr name="label"><string>Application 1</string></attr><node id="appCode1"><attr name="label"><string>Application
+Code</string></attr></node><node id="client1"><attr name="label"><string>IDRES
+Lookup
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node></graph></node><edge from="client1" to="serviceNode2"></edge><node id="app1"><graph id="cluster_app1"><attr name="label"><string>Application 1</string></attr><node id="appCode1"><attr name="label"><string>Application
+Code</string></attr></node><node id="client1"><attr name="label"><string>IDRES
+Lookup
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node></graph></node><edge from="client1" to="serviceNode3"></edge><edge from="appCode1" to="client1"></edge><node id="app2"><graph id="cluster_app2"><attr name="label"><string>Application 2</string></attr><node id="appCode2"><attr name="label"><string>Application
+Code</string></attr></node><node id="client2"><attr name="label"><string>IDRES
+Lookup
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node></graph></node><edge from="client2" to="serviceNode1"></edge><node id="app2"><graph id="cluster_app2"><attr name="label"><string>Application 2</string></attr><node id="appCode2"><attr name="label"><string>Application
+Code</string></attr></node><node id="client2"><attr name="label"><string>IDRES
+Lookup
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node></graph></node><edge from="client2" to="serviceNode2"></edge><node id="app2"><graph id="cluster_app2"><attr name="label"><string>Application 2</string></attr><node id="appCode2"><attr name="label"><string>Application
+Code</string></attr></node><node id="client2"><attr name="label"><string>IDRES
+Lookup
+Client
+Library</string></attr><attr name="color"><string>red</string></attr></node></graph></node><edge from="client2" to="serviceNode3"></edge><edge from="appCode2" to="client2"></edge></graph></graphml>
