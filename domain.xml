@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="utf-8" ?><domain><type><id>vessel</id><attrs><attr><name>imo</name><type>integer</type><update>fixed</update></attr><attr><name>name</name><type>string</type><update>stable</update></attr><attr><name>mmsi</name><type>integer</type><update>stable</update></attr></attrs></type></domain>
