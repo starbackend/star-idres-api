@@ -1,58 +1,69 @@
-<!DOCTYPE html><html><body style="width: 800px; margin-left: auto; margin-right:auto; text-align:justify;"><header><h1><i>STAR Identity Resolution and Enrichment Component</i></h1><h2>Functional Specification</h2><p>Author: <a href='mailto:Marton.PAPP@emsa.europa.eu'>Márton Papp</a></p></header><section class="overview"><h3>Overview</h3><p>The <i>STAR Identity Resolution and Enrichment Component</i> is a service that is accessed via an embeddable 
-client side component and which provides a clear and
-consistent way to identify and retrieve common information about vessels.
-It is designed to be reusable, performant and scalable.
-</p><p>This specification is not yet complete. Work is in progress. Feel 
+<!DOCTYPE html><html><body style="width: 800px; margin-left: auto; margin-right:auto; text-align:justify;"><header><h1><i>STAR Identity Resolution and Enrichment Component</i></h1><h2>Functional Specification</h2><p>Author: <a href='mailto:Marton.PAPP@emsa.europa.eu'>Márton Papp</a></p></header><section class="overview"><h3>Overview</h3><p>The <i>STAR Identity Resolution and Enrichment Component</i> is a service that provides a clear and
+consistent way for applications to identify vessels and 
+retrieve general information about them.
+The service is designed to be used as a central source 
+of data for many applications so that they all share 
+a common set information and provide a consistent
+view to their users. It is also designed to be performant
+in order to support the most demanding use cases and 
+extensible so that it can easily be adapted to future requirements.
+
+
+</p><p><i>This specification is not yet complete. Work is in progress. Feel 
 free to provide feedback.
-</p></section><section class="scenarios"><h3>Scenarios  </h3><h4>Scenario: Real Time Resolution</h4><p>A system called WheresMyShip is receiving position reports from 
-a number of vessel around the world. The users of WheresMyShip 
+</i></p></section><section class="scenarios"><h3>Scenarios  </h3><h4>Scenario: Real Time Resolution</h4><p>A system called WheresMyShip is receiving position reports from 
+a number of vessels around the world. The users of WheresMyShip 
 would like to see a map of the world that always displays the latest
-known positions of every vessel. The developers of WheresMyShip would like
-to use the <i>STAR Identity Resolution and Enrichment Component</i> to identify the source of each received report message.
+known position for every vessel. The developers of WheresMyShip would like
+to use the <i>STAR Identity Resolution and Enrichment Component</i> to identify the originator (that is,
+the reporting vessel) for every received message.
 Since WheresMyShip is expected to become very popular there is no 
 known limit to the number of messages that will need to be processed.
 For this reason the <i>STAR Identity Resolution and Enrichment Component</i> is designed with scalability in mind.
 That is, by adding more hardware resources the component handles
 the increased load without degradadation in performance.
 </p><h4>Scenario: Vessel Track Query</h4><p>The users of WheresMyShip would like to know where certain ships were
-sailing during some period of time. For this the WheresMyShip system
-will need to keep the received positions in a database. When the user 
-specifies the vessel and the period the application will need to 
-retrieve the relevent positions from the database and display it on the 
+sailing during some period of time. In order to satisfy this requirement
+the WheresMyShip system keeps the received position messages in a 
+database. When the user specifies the vessel and the period of time 
+the application retrieves the relevent positions from the database 
+and displays them on the 
 map (most likely as a series of connected dots). The developers of 
-WheresMyShip soon realize that identifying the corresponding
+WheresMyShip realized that identifying the corresponding
 position reports is not a trivial task. First of all, there are
 various position reporting systems that all use their own identifiers,
 message formats, periodicity, confientiality, transmitting technology,
 registries, etc. Then, a single vessel may use more then one of these
 systems, so there should be some mapping which makes the connection
 between the position reports of a single vessel that are received 
-from different sources. And to make it even worse, for some systems
+through different channels. And to make it even worse, for some systems
 the identifiers that are used to refer to a certain vessel might change
 over time. So it is not enough to know which vessel is using which identifer
 but it is also necessary to keep track of when it is/was doing so.
-The developers of WheresMyShip decide that instead of trying to maintain
-all this mapping information in their own system they will embed and use
+Thefore the developers of WheresMyShip decided that instead of trying to maintain
+all this mapping information in their own system they would embed and use
 the <i>STAR Identity Resolution and Enrichment Component</i> that handles all the related tasks.
 </p><h4>Scenario: Area Centric Query</h4><p>Some users of WheresMyShip do not have ships. They have territories.
 Sometimes they would like to know who was sailing in their territories
-durindurin a given period of time. Once they specify the are and the 
-time period that application will collect the corresponding 
+during a given period of time. Once the species the area and the 
+time period the application will collect the corresponding 
 reported positions from its database and display them on the map. 
 For sake of clarity the positions that were reported by the same vessel
 should be connected by lines so that the track of the vessel can
 be easily followed. In order to do this the application will need
-to group the positions by reporting vessel. The application will 
-delegate the task of mapping from reported positions to physical
+to group the positions by reporting vessel. The application 
+delegates the task of mapping from reported positions to physical
 vessels to the <i>STAR Identity Resolution and Enrichment Component</i>.
 </p><h4>Scenario: Search</h4><p>The users of WheresMyShip will sometimes want to see some 
-details about some vessel that are not related to position.
+details about some vessels that are not related to any 
+specific position report.
 For this they will enter some identitfiers into a form and 
 the application will look up the matching vessel or vessels 
-by using the corresponding functionality of the <i>STAR Identity Resolution and Enrichment Component</i>.
-The user might want to access information that is associated with the vessel
-as enrichment data and is provided by the <i>STAR Identity Resolution and Enrichment Component</i>. Alternatively the
-application might use the identified vessels to look up additional data
+by using the search functionality of the <i>STAR Identity Resolution and Enrichment Component</i>.
+The user might want to retrieve information information about
+the vessels that is stored directly in the <i>STAR Identity Resolution and Enrichment Component</i>, or the
+application might use the retrieved identifiers of the vessel to look up 
+additional data
 from a different source.
 </p><h4>Scenario: Data Stream Processing</h4><p>The information provided by <i>STAR Identity Resolution and Enrichment Component</i> will only be useful if
 it is correct and up to date. It means that it needs to be 
@@ -66,24 +77,26 @@ and in many cases it will be the only source of information about
 a given vessel. There are several kind of data streams 
 and apart from some common characterstics they can be quite different.
 It might also be possible that in the future some new data sources appear
-that will need to processed. For this reason the <i>STAR Identity Resolution and Enrichment Component</i> should 
-define and extensible mechanism to adapt to different kind of data streams.
+that will need to processed. For this reason the <i>STAR Identity Resolution and Enrichment Component</i>  
+defines and extensible mechanism to adapt to different kind of data streams.
 </p><h4>Scenario: Manual Update</h4><p>Sometimes the information in the <i>STAR Identity Resolution and Enrichment Component</i> will need to be updated
 from a souce that is not directly connected as a data stream. In these
 cases a manual operator will need to use the administration interface 
 of the <i>STAR Identity Resolution and Enrichment Component</i> and enter the data manually. In case there is
 large data set to be entered then the operator can use the interface
 that allows for a sructured document to be imported. The data set 
-will need to be converted to one of the supported formats before importing
+might need to be converted to one of the data 
+formats that are supported by the <i>STAR Identity Resolution and Enrichment Component</i> before importing
 it.
 </p><h4>Scenario: Conflict Resolution</h4><p>Given that the information to be managed in the <i>STAR Identity Resolution and Enrichment Component</i> 
-originates from a variety of unconnected source it is unavoidable
-that the newly received information occasionally be in conflict with the
-one that is already available. In some cases the conflict can
+originates from a variety of unconnected sources it is unavoidable
+that the newly received information is occasionally in conflict with the
+one that is already available in the database. 
+In some cases the conflict can
 be automatically resolved by applying certain rules. 
 However there will certainly be cases when the rules cannot
 be applied and the conflict will need to be resolved manually.
-For this the <i>STAR Identity Resolution and Enrichment Component</i> will implement a user interface where 
+For this the <i>STAR Identity Resolution and Enrichment Component</i> implements a user interface where 
 an operator can manually investigate the conflict and provide
 a resolution.
 </p><h4>Scenario: Validation</h4><p>Even if there are no obvious conflicts in the vessel identity 
@@ -95,38 +108,43 @@ reported positions of a single vessel from various sources can actually
 be combined into a valid track. Or the other way around, it can try to
 detect cases when two tracks that are reported to be originating from 
 different vessels show such correspondence that they are probably 
-reported by one single vessel. This are is broad and hard to be completely 
-defined, for which the <i>STAR Identity Resolution and Enrichment Component</i> should provide some support for 
-a pluggable mechanism for adding validation algorithms. 
+reported by one single vessel. This area is broad and it is challenging
+to completely define all its requirements, for which reasong the 
+<i>STAR Identity Resolution and Enrichment Component</i> provides support for 
+a pluggable mechanism for adding and updating validation algorithms. 
 </p><h4>Scenario: Enrichment</h4><p>Enrichment is the process of extending a set of infomration with
-additional data that it related to the original set and is retreived
+additional data that is related to the original set and is retreived
 from a different source. For example a vessel position report can
 be extended with known information about the attributes or actual status
-of the vessel but which are not included in the report message.
-The <i>STAR Identity Resolution and Enrichment Component</i> provide addition information about sources that
-are not directly related to vessel identity, like alerts, banned
-vessels, voyages and single hull tankers. This information can originate
-from different sources. The <i>STAR Identity Resolution and Enrichment Component</i> will collect this information
-and make it accessible to the embedding application in a structured
-and performant way, just like it does with the vessel identities.
+of the vessel but which are not included in the report message itself.
+The <i>STAR Identity Resolution and Enrichment Component</i> provides information about vessels that
+are not directly related to the identity of the vessel, 
+for example alerts, banned
+vessels, voyages and information about single hull tankers. 
+This information can originate
+from different sources. The <i>STAR Identity Resolution and Enrichment Component</i> collects this information
+and makes it accessible to the consuming application in a structured
+and performant way, just like it does with vessel identities.
 </p><h4>Scenario: Synchronization with External Databases</h4><p>As noted before, vessel identitication and enrichment is not a trivial
 task. Many systems have already put reasonable efforts into providing
 a solution for it. The <i>STAR Identity Resolution and Enrichment Component</i> is designed to benefit from these systems
 by being able to connect to and synchronize with their databases. 
-The type of this synchronization may depend on the other system. In some 
+The type of this synchronization may depend on the particular system. In some 
 cases it is based on real time notifications, in others it is 
 implemented by scheduled tasks. Like in the case of data streams the
-synchronization is subject to certain rules to be followed in case
+synchronized data is subject to certain rules to be followed in case
 of conflicts.
 </p></section><section class="service"> <h3>Service</h3><p><span>The <i>IDRES Service</i> provides the fundamental functoinalities of the <i>STAR Identity Resolution and Enrichment Component</i>:
 </span><ul><li>Storing identity and enrinchment related information</li><li>Handling client connections making the information available 
-to client applications</li><li>Processing data streams and extracting the relevant information</li><li>Supporting regular, event driven or manual validation tasks</li><li>Supporting manual conflict resolution</li><li>Supporting manual updates</li><li>Synchronizing with external services and databases
-</li></ul></p><p><span>The <i>IDRES Service</i> is a service that that accepts connections
-from other systems and applications. It has the following characterstics:
+to consuming applications</li><li>Processing data streams and extracting the relevant information</li><li>Supporting regular, event driven or manual validation tasks</li><li>Supporting manual conflict resolution</li><li>Supporting manual updates</li><li>Synchronizing with external services and databases
+</li></ul></p><p><span>The <i>IDRES Service</i> is a service that accepts connections
+from other systems and applications (also known as
+service consumers). It has the following characterstics:
 </span><dl><dt>High Availability </dt><dd>Other than system updates or necessary restarts
-the service is available to handle connections. 
+the service is available to respond to
+the consumers.
 </dd><dt>Failover</dt><dd>The service is deployed on multiple independent hardare nodes.
-It is built with enought redundancy so that the failuire of a single
+It is built with enought redundancy so that the failure of a single
 node does not result in any downtime in the service.  
 Replacing the failed node is also possible without 
 any interruption in the service.
@@ -143,23 +161,27 @@ data streams, services and databases and validation algorithms.
 Note that extending the data set is considered as an update to
 the system and does not need to be possible without service
 interruption.
-</dd><dt>Replication</dt><dd>In certain scenarios the client applications need to perform
+</dd><dt>Replication</dt><dd>In certain scenarios the consumer applications need to perform
 lookups at a very high rate (thousands per second) in a data set
 that is limited in size and changes infrequently. In order to 
 achieve the required performance the service provides support
-for their clients to hold a complete replica of certain data sets
-in their own space and perform certain operations on this data 
-set locally. The cervice makes sure that the client side replicas are 
+for its consumers to hold a complete replica of certain data sets
+in their own storage space and perform certain operations on this 
+replicated data set locally, without the need to consult the
+service. The cervice makes sure that the client side replicas are 
 continuously updated if necessary.
 </dd><dt>Portability</dt><dd>The service is designed to minimize the number of dependencies
 on external system components in order to achieve portability.
 It runs in any standard Java servlet container and also supports
-a mechanism to launch it as a standalone Java process. For any 
-external dependency it also provides a replacement embedded 
-implementation that is functionally equivalent. This is to 
-facilitate functional testing and development against the 
+a mechanism to launch it as a standalone Java process. 
+For any external systems that the service depends on it
+also provides an alternative implementation that
+is functionally equivalent with the external dependency but
+which lives in the running process of the service.
+This embeddable alternative can be used to simplify
+functional testing and development against the 
 interfaces of the service.
-</dd><dt>Flexible Storage   </dt><dd>The service support different storage mechanisms to adopt 
+</dd><dt>Flexible Storage   </dt><dd>The service supports different storage mechanisms to adopt 
 to the characterstics of the different kind of data sets that
 it is managing. Some will be limited in size so much that they
 they fit entirely into the memory of a single process. Updates
@@ -181,35 +203,41 @@ with an older version of the client library as long as the changes
 made between the versions are compatible. 
 Deployment time or runtime configurability is 
 only provided for those parameters
-that are expected to be specified by the system administrator during
-deployment, fine tuning or troubleshooting.
-</dd></dl></p><p>Most of the messages that are processed by client applications are 
+that are expected to be specified by the system administrator 
+in order to support flexible deployment scenarios, 
+fine tuning or troubleshooting.
+</dd></dl></p><p>Most of the messages that are processed by the consumer applications are 
 transmitted by the vessels themselves. Normally the message contains 
 some identifier or identifiers that can be used to determine the 
 originating vessel. Dependending on the reporting system this identifier
-could be the same for the lifetime over vessel or change at certain
+could be the same for the entire lifetime of vessel or it can change on certain
 occasions. A typical application would want to group the received
 messages by originator and keep a history of events for the vessel. 
 In order to do that and correctly assiciate the messages with vessels
 the changes in identifiers need to be taken into account. For this reason 
-the <i>STAR Identity Resolution and Enrichment Component</i> provides several mechanisms to continuously update the 
-its database that maps different identifier to actual vessels. 
+the <i>STAR Identity Resolution and Enrichment Component</i> provides several mechanisms to continuously update 
+its database that maps different identifier to physical vessels with
+up-to-date information.
 Moreover, in order to support the identification of the origin of 
 messages that were transimtted in the past, it keeps track of the 
-changes of this mapping over time and provides a way to perform lookups 
+changes in this mapping over time and provides a way to perform lookups 
 in the context of a certain moment in the past. 
-Given that the vessels that are tracked by the applications are a relatively
-stable and limited set and their identifiers change infrequently if at all,
+Given that the set of vessels that are tracked by the applications 
+is relatively stable and limited in terms of size 
+(that is, the total number of vessels to be tracked is not expected 
+to grow fast) and that their identifiers change infrequently if at all,
 the mapping data set is a perfect candidate to be stored entirely
-in process memory and be replicated in the client processes.
+in process memory and to be replicated in the process of the service
+consumer.
 </p><p>The support for identity mapping datasets is designed to be extendable 
 in the <i>STAR Identity Resolution and Enrichment Component</i>. The following mapping domains are supported by 
 default.
-</p><dl><dt>LRIT</dt><dd>A tracking system where the primary identifier of the vessels
-is a number also reffered to as "IMO number". The identifier is
-not expected to change over time.
+</p><dl><dt>LRIT</dt><dd>A tracking system where the primary identifier of a vessels
+is a number that is also reffered to as "IMO number". 
+The identifier is
+not expected to change during the lifetime of the vessel.
 </dd><dt>AIS</dt><dd>A tracking system that uses a number as the primary identifer,
-also known as the "MMSI number". The MMSI number encodes the flag ship
+also known as the "MMSI number". The MMSI number encodes the flag state
 of the vessel and is expected to change every time the
 vessel is registered in a different country.
 </dd><dt>VMS</dt><dd>A tracking system used for fishing vessels. There is no single 
@@ -233,18 +261,19 @@ a certain period. It is still possible to keep track of the correct
 identifier by using the extension mechanism to add a new data set that
 will only be used for manual searches and display of information.
 </p><p>The data store for vessel identities are structured in a way so that
-for any vessel identifier for any point in time there is maximum one 
-physicial vessel associated. That is, the service will always 
+for any vessel identifier and for any moment in time there is maximum one 
+physicial vessel associated to it. That is, the service will always 
 respond unambiguously to an identity lookup request. In case of a conflict
 any automatic resolution mechanism will enforce this rule. If the 
 resolution cannot be performed automatically, an operator will be 
 notified and be asked for manual intervention. During this time the 
 service will continue to respond according to the results of the 
-latest update or successful conflict resolution.
+latest successfule update or conflict resolution.
 </p><p>The service also manages another kind of information which is reffered
 to as "enrichment". Enrichment data is not used directly in the process
 of identitfying the originators of messages in a certain data stream. 
-Instead it contains attributes that are associated with the vessels.
+Instead it contains attributes that are associated with the 
+physicial characteristics of actual status of the vessels.
 These attributes are primarily used to be displayed to the users.
 They may also be used in searches performed either by manual queries
 or some processing algorithms. The type of the attributes can be 
@@ -253,45 +282,49 @@ Some might change with certain frequency. In some cases the history
 of the changes is required to be retained, in other cases only
 the latest value is relevant. Some attributes will hold a history
 of certain kind of events that are associated with the vessel. 
-This kind dataset may grow infinitely over time and is likely not 
+This latter kind of dataset may grow infinitely over time and is likely not 
 to fit entirely into the memory of a single process. 
 </p><p>Enrichment data is typically retrieved from the same sources as the
 vessel identifiers that are used in identity resolution. (In fact the 
 vessel identifiers can be seen as a special case of "enrichment" data
 where uniqueness is enforced.) Similarly to vessel identifiers, 
 enrichment data is also subject to 
-conflict resolution as the data set maintinaed by the serivce is updated 
-from and synchronized with a number of independent
+conflict resolution as the data set that is maintined internally by the 
+serivce is updated from and synchronized with a number of independent
 sources. As in the case of idenitifiers, the service will always 
 respond with the result of the latest successful conflict resolution 
-and will not reveal any unresolved conflicts to the client applictions.
+and will not reveal any unresolved conflicts to the 
+service consumer applications.
 </p></section><section class="lookup_client"><h3>Lookup Client Library</h3><img src="lookup_client.graph.png"><p><span>Client applications use a Java library to access the core services
-of the <i>STAR Identity Resolution and Enrichment Component</i>. It implements an API that provides the following
+of the <i>STAR Identity Resolution and Enrichment Component</i>. The client library implements 
+an API that provides the following
 functionality:
 </span><ul><li>Connecting to the service core. The client application will provide
 the neccessary configuration paramters to reach the service. 
-</li><li>Once the connection is established the client will use the API
+</li><li>Once the connection is established the consumer application uses the API
 to obtain references to the data sets that it needs to use. 
-The data set reference determines the method that the data set is 
-accessed. For example it can be replicated locally in the memory 
-of the client process or accessed in the server core for every 
+The data set reference determines the method that is used
+to access the data set. For example it can be replicated locally in the memory 
+of the client process or accessed by consulting the 
+service directly for every 
 single request. If the same data set is likely to be accessed using
 different methods by different type of clients then there will be 
 a reference availabe for each method. The type of access is 
 indicated in the documentation of the API. 
-</li><li><span>The data set reference defines the request that the client application
+</li><li><span>The data set reference defines the requests that the client application
 can use to access the data set. The list below indicates a few 
 special types that the requests typically use:
 </span><dl><dt>VesselID</dt><dd>It is a surrogate key type that is used to refer to a single 
 physical vessel according to the <i>STAR Identity Resolution and Enrichment Component</i>. It can be returned
 by certain requests (typically lookups by vessel identifiers) and
-can be used to refere to the same vessel in further requests. 
+can be used to refer to the same vessel in further requests. 
 The value of this type is not guaranteed to be stable. It means that
 certain conflict resolutions might invalidate previously used 
-VesselIDs. Since conflicts are expected to be rare this 
-will not influence greatly the application. If an invalidated
+VesselIDs. If an invalidated
 VesselID is used in a request then an exception will be 
-raised which needs to be handled by the client.
+thrown which needs to be handled by the client.
+Since conflicts are expected to be rare this 
+does not have a major impact on the consuming application. 
 The VesselID correctly implements the <i>equals</i> and <i>hashCode</i>
 methods and the <i>toString</i> method returns a conistent 
 and unique value.
@@ -312,7 +345,7 @@ binaries that define the clients and the service core are shared.
 This allows for compile time checks on the correct use of 
 references by the client. 
 </span></div></li></ul></p><p>The list of data set references is extendable. Step by step instructions
-are provided in the documentation for a developer to add new data sets
+are provided in the documentation for a developer to add new data set
 references available to the client or to modify existing ones.
 The following data set references are implemented by default:
 </p><h4>Vessel Identifier Lookup</h4><p>There is a data set reference for each kind of message reporting system
@@ -341,13 +374,13 @@ the data sets of the <i>IDRES Service</i> accordingly.</li><li>Updating or inser
 by the defined business rules. </li><li>Uploading a batch of information and overwriting previously 
 inserted data.
 </li></ul><p>The <i>IDRES Update Client Library</i> has the following characterstics:
-</p><ul><li>It is the only point of entry for external component to make changes
+</p><ul><li>It is the only point of entry for external components to make changes
 to the data sets stored by the <i>IDRES Service</i>.</li><li>Using the <i>IDRES Update Client Library</i> always enforces the application of 
 a set of validation rules and conflict resolution strategies
 that are defined centrally by the <i>IDRES Service</i>. When the 
 rules or strategies are updated they are immediately effective to all the 
 clients.</li><li>The <i>IDRES Update Client Library</i> binaries are closely related to the data sets
-that are defined by the <i>IDRES Service</i>. They available
+that are defined by the <i>IDRES Service</i>. The available
 data sets are exposed to the client code via the Java type system. 
 When the data set is changed a new client library is released. 
 The client applications need to upgrade their client library
@@ -356,9 +389,4 @@ with older versions of the client library as long as the changes between
 the versions are compatible.
 
 
-</li></ul><a href="javadoc/index.html">Javadoc    </a><h3>Specification</h3><p>The <i>STAR Identity Resolution and Enrichment Component</i> can be 
-
-</p><ol><li>The direct users of the <i>STAR Identity Resolution and Enrichment Component</i> are Java 1.7 applications that 
-access its functionalities via a client side Java API which is packaged
-with the application. The application provides the necessary configuration
-settings to initialize the client interface. </li></ol></section></body></html>
+</li></ul><a href="javadoc/index.html">Javadoc    </a></section></body></html>
