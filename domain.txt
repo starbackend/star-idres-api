@@ -1,0 +1,35 @@
+vessel
+  internal identifier
+  reporting system identifiers
+    imo
+    mmsi
+    ir
+    radio call sign
+  other attributes
+    name
+    flag state
+    ship type 
+      psc ???
+    single hull tanker ???
+    dimensions
+      beam
+      length
+      gps receiver position on board (a,b,c,d)
+  status
+    banned ???
+    port state control ???
+      detained
+      risk profile
+      priority of inspection
+      eligible for esp inp
+      eligible for banning
+  events
+    ban ???
+    incident ???
+      sitrep
+      polrep
+      lost found containers
+      waste
+    
+    
+  
